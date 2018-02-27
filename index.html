@@ -8,19 +8,82 @@
 
     <!-- CSS  -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link href="index.css" rel="stylesheet" type="text/css" />
-    <title>Hello, world!</title>
+    <link href="main.css" rel="stylesheet" type="text/css" />
+    <title>Cerebro</title>
   </head>
 
   <body>
-    <h1>Cerebro</h1>
-    <div class = "siteDescription">
-      <p>Search a comic book character below and discover which comics, movies, and video games that character has been in.</p>
-    </div>
-    <form class = "searchForm">
-      <input>
-    </form>
+    <nav class="navbar fixed-top navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">Cerebro</a>
+<!--       <form class="form-inline"">
+        <div class="navSearch">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </div>
+      </form> -->
+    </nav>
 
+    <main>
+      <div class="container siteDescription text-center">
+        <p>Search a comic book character below and discover which comics, movies, and video games that character has been in.</p>
+      </div>
+
+
+      <div class="container">
+        <form>
+          <div class="form-group searchForm">
+            <label for="searchForm"></label>
+            <input type="text" class="form-control" id="searchForm" placeholder="Enter a comic book character">
+          </div>
+          <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+      </div>
+
+
+      <div class="container charInfo contentDiv text-center">
+        character picture and description
+      </div>
+
+      <div class="container comicInfo contentDiv">
+        <a class="btn btn-primary container" data-toggle="collapse" href="#comicDiv" role="button" aria-expanded="false" aria-controls="collapseExample">
+          Comics
+        </a>
+        <div class="collapse" id="comicDiv">
+          <div class="card card-body">
+          comic pics and descriptions
+          </div>
+        </div>
+      </div>
+
+      <div class="container movieInfo contentDiv">
+        <a class="btn btn-primary container" data-toggle="collapse" href="#movieDiv" role="button" aria-expanded="false" aria-controls="collapseExample">
+          Movies
+        </a>
+        <div class="collapse" id="movieDiv">
+          <div class="card card-body">
+          movie pics and descriptions
+          </div>
+        </div>
+      </div>
+
+      <div class="container gameInfo contentDiv">
+        <a class="btn btn-primary container" data-toggle="collapse" href="#gameDiv" role="button" aria-expanded="false" aria-controls="collapseExample">
+          Games
+        </a>
+        <div class="collapse" id="gameDiv">
+          <div class="card card-body">
+          game pics and descriptions
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <footer class="page-footer fixed-bottom text-center">
+      <div class="container-fluid">
+          <p>Annotations here</p>
+      </div>
+    </footer>
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

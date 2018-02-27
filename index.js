@@ -65,7 +65,7 @@ function gatherMovieData (){
 }
 
 // Summary: creates object containing game info
-// Details: Will ultimately create an object that will be fed into insertGameInfo.  Will first feed the guid into the getGapiCharDetails to return character details including movie list. It will then call getGapiGameDetails with first_appeared_in_game.id and gatherGameData as callback??? and push the results to the new object (gameDetails). It will then loop through the first 4 movies.id and feed them into getGapiGameDetails, pushing the result data into gameDetails object. It will then call insertGameInfo passing through gameDetails
+// Details: Will ultimately create an object that will be fed into insertGameInfo.  Will first feed the guid into the getGapiCharDetails to return character details including movie list. It will then call getGapiGameDetails with first_appeared_in_game.id and gatherGameData as callback??? and push the results to the new object (gameDetails). It will then loop through the first 4 .id and feed them into getGapiGameDetails, pushing the result data into gameDetails object. It will then call insertGameInfo passing through gameDetails
 function gatherGameData (){
 
 }
