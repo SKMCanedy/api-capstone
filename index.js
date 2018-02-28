@@ -1,4 +1,4 @@
-
+'use strict';
 // --- Global Variables ---
 // stores the data the cust inputted in the search field
 let userSearchData='';
@@ -6,107 +6,237 @@ let userSearchData='';
 // stores the comic vine character details so multiple calls will not need to be made
 let capiCharDetails={};
 
+// stores the giantbomb character details so multiple calls will not need to be made
+let gapiCharDetails={};
+
 
 // --- API Pull functions---
 
 // Summary: Character ID Pull - Comic Vine API (capi)
 // Details: This accesses the Comic Vine Characters API with the main goal to get the character ID number so that specific character details can be pulled by another function. Callback function is reviewCapiChar
-function getCapiCharId (){
-
-}
+function getCapiCharId (callback){
+	console.log (`getCapiCharId function accessed`);
+	const capiCharSearchUrl = "https://cors-anywhere.herokuapp.com/https://www.comicvine.com/api/characters/";
+	const query = {
+		api_key: "77e74b104e90bbe37c3f4576a41e5c7a37c87520",
+		format: "json",
+		filter: `name:${userSearchData}`,
+	};
+	$.getJSON(capiCharSearchUrl, query, callback);
+};
 // Summary: Specific character data pull - capi
 // Details: This accesses the Comic Vine Character API (note the singular form of character) and feeds the data to updateCapiCharDetails. This provides more detail about a character that other functions will rely on. 
 
-function getCapiCharDetails (){
-
-}
+function getCapiCharDetails (charURL, callback){
+	console.log (`getCapiCharDetails function accessed`);
+	const capiCharDetailsUrl = "https://cors-anywhere.herokuapp.com/"+charURL;
+	const query = {
+		api_key: "77e74b104e90bbe37c3f4576a41e5c7a37c87520",
+		format: "json",
+	};
+	$.getJSON(capiCharDetailsUrl,query,callback);
+};
 
 // Summary: Comic book info data pull - capi
 // Details: This pulls specific comic book data from Comic Vine Issues API (note plural form). Callback function is gatherComicData???
 
 
-function getCapiComicDetails (){
-
-}
+function getCapiComicDetails (comicId, callback){
+	console.log (`getCapiComicDetails function accessed`);
+	const capiComicDetailsUrl = `https://cors-anywhere.herokuapp.com/https://comicvine.gamespot.com/api/issues/`;
+	const query = {
+		api_key: "77e74b104e90bbe37c3f4576a41e5c7a37c87520",
+		format: "json",
+		filter: `id:${comicId}`,
+		field_list: "id,name,image,description,site_detail_url",
+	};
+	$.getJSON(capiComicDetailsUrl,query,callback);
+};
 
 // Summary: Movie info data pull - capi
 // Details: This pulls specific movie data from Comic Vine Movie API (note singular form). Callback function is gatherMovieData???
 
-function getCapiMovieDetails (){
-
-}
+function getCapiMovieDetails (movieID, callback){
+	console.log (`getCapiMovieDetails function accessed`);
+	const capiMovieDetailsUrl = `https://cors-anywhere.herokuapp.com/https://comicvine.gamespot.com/api/movie/${movieId}/`;
+	const query = {
+		api_key: "77e74b104e90bbe37c3f4576a41e5c7a37c87520",
+		format: "json",
+	};
+	$.getJSON(capiMovieDetailsUrl,query,callback);
+};
 
 
 // Character ID - Giantbomb API (gapi)
-function getGapiCharId (){
+function getGapiCharId (callback){
+	console.log (`getGapiCharId function accessed`);
+	const gapiCharSearchUrl = `https://cors-anywhere.herokuapp.com/https://www.giantbomb.com/api/characters/`;
+	const query = {
+		api_key: "2a8e5dcbcc310e7cf6713106844a65288cd678d4",
+		format: "json",
+		filter: `name:${userSearchData}`,
+	};
+	$.getJSON(gapiCharSearchUrl,query,getGapiCharDetails);
+};
 
-}
 // Specific character data - gapi
-function getGapiCharDetails (){
+function getGapiCharDetails (apiData){
+	console.log (`getGapiCharDetails function accessed`);
+	let charURL = apiData.results[0].api_detail_url;
+	const gapiCharDetailsUrl = "https://cors-anywhere.herokuapp.com/"+charURL;
+	const query = {
+		api_key: "2a8e5dcbcc310e7cf6713106844a65288cd678d4",
+		format: "json",
+	};
+	$.getJSON(gapiCharDetailsUrl,query,updateGapiCharDetails);
+};
 
-}
+
 // Game info - gapi
-function getGapiGameDetails (){
-
-}
+function getGapiGameDetails (gameId, callback){
+	console.log (`getGapiGameDetails function accessed`);
+	const gapiGameDetailsUrl = `https://www.giantbomb.com/api/game/${gameId}`;
+	const query = {
+		api_key: "2a8e5dcbcc310e7cf6713106844a65288cd678d4",
+		format: "json",
+	};
+	$.getJSON(gapiCharDetailsUrl,query,callback);
+};
 
 // --- Gather data to be displayed ---
 // Summary: creates object containing comic info
-// Details: Will ultimately create an object that will be fed into insertComicInfo.  Will first feed getCapiComicDetails with first_appeared_in_issue.id and gatherComicData as callback??? and push the results to the new object (comicDetails). It will then loop through the first 4 issue_credits.id and feed them into getCapiComicDetails, pushing the result data into comicDetails object. It will then call insertComicInfo passing through comicDetails
-function gatherComicData (){
-
-}
+// Details: Will ultimately create an array filled with objects (comicDetails) that will be fed into insertComicInfo.  Will first feed getCapiComicDetails with first_appeared_in_issue.id and gatherComicData as callback??? and push the results to the new object (comicDetails). It will then loop through the first 4 issue_credits.id and feed them into getCapiComicDetails, pushing the result data into comicDetails object. It will then call insertComicInfo passing through comicDetails
+function gatherComicData (apiData){
+	console.log (`gatherComicData function accessed`);
+	const comicDetails = [];
+	getCapiComicDetails(capiCharDetails.results.first_appeared_in_issue.id, gatherComicData);
+	comicDetails.push=({
+		name:apiData.results.name, 
+		desc:apiData.results.description, 
+		image:apiData.results.image.medium_url, 
+		url:apiData.results.site_detail_url,
+	});
+	for (i=0; i<4; i++){
+		getCapiComicDetails(capiCharDetails.results.issue_credits[i].id, gatherComicData);
+		comicDetails.push=({
+		name:apiData.results.name, 
+		desc:apiData.results.description, 
+		image:apiData.results.image.medium_url, 
+		url:apiData.results.site_detail_url,
+		});
+	}
+	insertComicInfo(comicDetails);
+};
 
 // Summary: creates object containing movie info
-// Details: Will ultimately create an object that will be fed into insertMovieInfo.  It will loop through the first 5 movies.id and feed them into getCapiComicDetails, pushing the result data into a movieDetails object. It will then call insertMovieInfo passing through movieDetails
+// Details: Will ultimately create an array filled with objects (movieDetails) that will be fed into insertMovieInfo.  It will loop through the first 5 movies.id and feed them into getCapiComicDetails, pushing the result data into a movieDetails object. It will then call insertMovieInfo passing through movieDetails
 
-function gatherMovieData (){
+function gatherMovieData (apiData){
+	console.log (`gatherMovieData function accessed`);
+	const movieDetails = [];
+	for (i=0; i<5; i++){
+		getCapiMovieDetails(capiCharDetails.results.movies[i].id, gatherMovieData);
+		movieDetails.push({
+			name:apiData.results.name, 
+			desc:apiData.results.description, 
+			image:apiData.results.image.medium_url, 
+			url:apiData.results.site_detail_url,
+		});
+	}
+	insertMovieInfo(movieDetails);
 
-}
+};
 
 // Summary: creates object containing game info
-// Details: Will ultimately create an object that will be fed into insertGameInfo.  Will first feed the guid into the getGapiCharDetails to return character details including movie list. It will then call getGapiGameDetails with first_appeared_in_game.id and gatherGameData as callback??? and push the results to the new object (gameDetails). It will then loop through the first 4 .id and feed them into getGapiGameDetails, pushing the result data into gameDetails object. It will then call insertGameInfo passing through gameDetails
-function gatherGameData (){
-
-}
+// Details: Will ultimately create an array filled with objects(gameDetails) that will be fed into insertGameInfo. It will then call getGapiGameDetails with first_appeared_in_game.id and gatherGameData as callback??? and push the results to the new object (gameDetails). It will then loop through the first 4 .id and feed them into getGapiGameDetails, pushing the result data into gameDetails object. It will then call insertGameInfo passing through gameDetails
+function gatherGameData (apiData){
+	console.log (`gatherGameData function accessed`);
+	const gameDetails = [];
+	getGapiGameDetails(gapiCharDetails.results.first_appeared_in_game.id, gatherGameData);
+	gameDetails.push({
+		name:apiData.results.name, 
+		desc:apiData.results.description, 
+		image:apiData.results.image.medium_url, 
+		url:apiData.results.site_detail_url,
+		})
+	for (i=0; i<4; i++){
+		getGapiGameDetails(gapiCharDetails.results.games[i].id, gatherComicData);
+		gameDetails.push({
+			name:apiData.results.name, 
+			desc:apiData.results.description, 
+			image:apiData.results.image.medium_url, 
+			url:apiData.results.site_detail_url,
+		})
+	}
+	insertGameInfo(gameDetails);
+};
 
 
 
 
 // --- These review data ---
 // Summary: Reviews existence of character in capi
-// Details: Callback function for getCapiCharID. This will take in the data from getCapiCharId and compare the name keyvalue from the apiData to the userSearchData global variable to see if there is match. If there is a match, it will call the getCapiCharDetails function, passing through the charID (from the apiData) and updateCapiCharDetails callback function. It will also call the loadValidCharDom function. If there is not a match, it will trigger the insertInvalidSearch function.
+// Details: Callback function for getCapiCharID. This will take in the data from getCapiCharId and look to see if there is a result 1 or greater. If there is a match, it will call the getCapiCharDetails function, passing through the charID (from the apiData) of the first results array entry and updateCapiCharDetails callback function. It will also call the getGapiCharId (passing getGapiCharDetails as the callback) and loadValidCharDom functions. If there is not a match, it will trigger the insertInvalidSearch function.
 function reviewCapiChar (apiData){
-
-}
+	console.log (`reviewCapiChar function accessed`);
+	if (apiData.number_of_total_results>= 1) {
+		console.log(`Character URL is ${apiData.results[0].api_detail_url}`);
+		getCapiCharDetails(apiData.results[0].api_detail_url, updateCapiCharDetails);
+		getGapiCharId ();
+	}
+	else {
+		insertInvalidSearch(getGapiCharDetails);
+	}
+};
 
 // Summary: Reviews comic book character info from capi to determine what to put into comic section DOM
 // Details: This will review capiCharDetails to determine if there are comics (issue_credits key) available to be displayed. If there is, it will call the gatherComicData function. Otherwise it will call insertNoInfoFound
 function reviewCapiComic () {
-
-}
+	console.log (`reviewCapiComic function accessed`);
+	if (capiCharDetails.results.issue_credits[0] != null){
+		gatherComicData();
+	}
+	else {
+		insertNoInfoFound('.comicInfo');
+	}
+};
 
 // Summary: Reviews movie info from capi to determine what to put into movie section DOM
 // Details: This will review capiCharDetails to determine if there are movies (movies key) available to be displayed. If there is, it will call the gatherMovieData function. Otherwise it will call insertNoInfoFound 
 function reviewCapiMovie () {
-	
-}
+	console.log (`reviewCapiMovie function accessed`);
+	if (capiCharDetails.results.movies[0] != null){
+		gatherMovieData();
+	}
+	else {
+		insertNoInfoFound('.movieInfo');
+	}	
+};
 // Summary: Compares Giant Bomb API data against user input to determine what to put into game section DOM
 // Details: This will call getGapiCharID and look to see if games exist (first_appeared_in_game key). If so, it will call the gatherGameInfo function, passing the guid.  Otherwise it will call insertNoInfoFound
 function reviewGapiGame () {
-	
-}
+	console.log (`reviewGapiGame function accessed`);
+	if (gapiCharDetails.results.games[0] != null){
+		gatherGameData();
+	}
+	else {
+		insertNoInfoFound('.gameInfo');
+	}		
+};
 
 
 // ---Manipulates the DOM when there are errors---
 // Inserts Invalid Search error message in DOM. Used when a user submits an invalid search (non comic book character)
 function insertInvalidSearch (){
-
-}
+	console.log (`insertInvalidSearch function accessed`);
+	$('#errorSection').html(`Uh oh. We can't find that character! Did you spell it correctly? Please try again.`);
+	showErrorSection();
+};
 // Inserts No info found error message in results DOM
-function insertNoInfoFound () {
-
-}
+function insertNoInfoFound (divClass) {
+	console.log (`insertNoInfoFound function accessed`);
+	$(divClass).html(`Looks like this character doesn't have information available for this.`)
+};
 
 // --- Valid match insert functions. Manipulates DOM after valid character match ---
 
@@ -114,65 +244,208 @@ function insertNoInfoFound () {
 // Details: Calls functions that:  load character picture & description (insertCharInfo), unhides main content section (showMainContent) & nav bar elements (search, scrollspy header navigation - showNavElem & showScrollSpy), determines what should be displayed in the main content section (reviewCapiComic, reviewCapiMovie, reviewGapiGame)
 
 function loadValidCharDom (){
-
-}
+	console.log (`loadValidCharDom function accessed`);
+	insertCharInfo();
+	// showNavElem();
+	// showScrollSpy();
+	reviewCapiComic();
+	reviewCapiMovie();
+	reviewGapiGame();
+	showMainContent();
+};
 // Summary: Inserts capi character pic and desc
-// Details: Using  keyvalues from capiCharDetails (image, deck, url) will display character info 
+// Details: Using  keyvalues from capiCharDetails (name, image, deck, url) will display character info 
 function insertCharInfo(){
+	console.log (`insertCharInfo function accessed`);
+	let charDetailsString = `
+		<div class="card text-center" style="width: 18rem;">
+			<h2>${capiCharDetails.name}</h2>
+			<img class="card-img-top" src="${capiCharDetails.results.image.medium_url}" alt="Image of ${capiCharDetails.name}">
+			<div class="card-body">
+		    	<p class="card-text">${capiCharDetails.deck}</p>
+		  	</div>
+		</div>`
+	// let charDetailsString = `<div class="img-thumbnail mx-auto">
+	// 		<img src= "${capiCharDetails.results.image.medium_url}" alt="Image of ${capiCharDetails.name}"
+	// 	</div>
+	// 	<div>
+	// 		<p>${capiCharDetails.deck}</p>
+	// 	</div>`;
+	$(".charInfo").html(charDetailsString);
 
-}
+};
 // Inserts capi comic information
-function insertComicInfo(){
+function insertComicInfo(comicDetails){
+	console.log (`insertComicInfo function accessed`);
+	let comicDetailsString = `
+		<div class="card" style="width: 18rem;">
+		  <img class="card-img-top" src="${comicDetails[0].image}" alt="Image of ${comicDetails[0].name}">
+		  <div class="card-body">
+		    <p class="card-text">${comicDetails[0].description}</p>
+		  </div>
+		</div>
+		<div class="card" style="width: 18rem;">
+		  <img class="card-img-top" src="${comicDetails[1].image}" alt="Image of ${comicDetails[1].name}">
+		  <div class="card-body">
+		    <p class="card-text">${comicDetails[1].description}</p>
+		  </div>
+		</div>
+		<div class="card" style="width: 18rem;">
+		  <img class="card-img-top" src="${comicDetails[2].image}" alt="Image of ${comicDetails[2].name}">
+		  <div class="card-body">
+		    <p class="card-text">${comicDetails[2].description}</p>
+		  </div>
+		</div>
+		<div class="card" style="width: 18rem;">
+		  <img class="card-img-top" src="${comicDetails[3].image}" alt="Image of ${comicDetails[3].name}">
+		  <div class="card-body">
+		    <p class="card-text">${comicDetails[3].description}</p>
+		  </div>
+		</div>
+		<div class="card" style="width: 18rem;">
+		  <img class="card-img-top" src="${comicDetails[4].image}" alt="Image of ${comicDetails[4].name}">
+		  <div class="card-body">
+		    <p class="card-text">${comicDetails[4].description}</p>
+		  </div>
+		</div>
+		`;
+	$('.comicInfo').html(comicDetailsString);
 	
-}
+};
 // Inserts capi movie info
-function insertMovieInfo(){
-
-}
+function insertMovieInfo(movieDetails){
+	console.log (`insertMovieInfo function accessed`);
+	let movieDetailsString = `
+		<div class="card" style="width: 18rem;">
+		  <img class="card-img-top" src="${movieDetails[0].image}" alt="Image of ${movieDetails[0].name}">
+		  <div class="card-body">
+		    <p class="card-text">${movieDetails[0].description}</p>
+		  </div>
+		</div>
+		<div class="card" style="width: 18rem;">
+		  <img class="card-img-top" src="${movieDetails[1].image}" alt="Image of ${movieDetails[1].name}">
+		  <div class="card-body">
+		    <p class="card-text">${movieDetails[1].description}</p>
+		  </div>
+		</div>
+		<div class="card" style="width: 18rem;">
+		  <img class="card-img-top" src="${movieDetails[2].image}" alt="Image of ${movieDetails[2].name}">
+		  <div class="card-body">
+		    <p class="card-text">${movieDetails[2].description}</p>
+		  </div>
+		</div>
+		<div class="card" style="width: 18rem;">
+		  <img class="card-img-top" src="${movieDetails[3].image}" alt="Image of ${movieDetails[3].name}">
+		  <div class="card-body">
+		    <p class="card-text">${movieDetails[3].description}</p>
+		  </div>
+		</div>
+		<div class="card" style="width: 18rem;">
+		  <img class="card-img-top" src="${movieDetails[4].image}" alt="Image of ${movieDetails[4].name}">
+		  <div class="card-body">
+		    <p class="card-text">${movieDetails[4].description}</p>
+		  </div>
+		</div>
+		`;
+	$('.movieInfo').html(movieDetailsString);
+};
 // Inserts gapi video game info
-function insertGameInfo(){
-	
-}
+function insertGameInfo(gameDetails){
+	console.log (`insertGameInfo function accessed`);
+	let gameDetailsString = `
+		<div class="card" style="width: 18rem;">
+		  <img class="card-img-top" src="${gameDetails[0].image}" alt="Image of ${gameDetails[0].name}">
+		  <div class="card-body">
+		    <p class="card-text">${gameDetails[0].description}</p>
+		  </div>
+		</div>
+		<div class="card" style="width: 18rem;">
+		  <img class="card-img-top" src="${gameDetails[1].image}" alt="Image of ${gameDetails[1].name}">
+		  <div class="card-body">
+		    <p class="card-text">${gameDetails[1].description}</p>
+		  </div>
+		</div>
+		<div class="card" style="width: 18rem;">
+		  <img class="card-img-top" src="${gameDetails[2].image}" alt="Image of ${gameDetails[2].name}">
+		  <div class="card-body">
+		    <p class="card-text">${gameDetails[2].description}</p>
+		  </div>
+		</div>
+		<div class="card" style="width: 18rem;">
+		  <img class="card-img-top" src="${gameDetails[3].image}" alt="Image of ${gameDetails[3].name}">
+		  <div class="card-body">
+		    <p class="card-text">${gameDetails[3].description}</p>
+		  </div>
+		</div>
+		<div class="card" style="width: 18rem;">
+		  <img class="card-img-top" src="${gameDetails[4].image}" alt="Image of ${gameDetails[4].name}">
+		  <div class="card-body">
+		    <p class="card-text">${gameDetails[4].description}</p>
+		  </div>
+		</div>
+		`;
+	$('.gameInfo').html(gameDetailsString);
+};
 
 // unhides section containing h2 elements
 function showMainContent(){
+	console.log (`showMainContent function accessed`);
+	$('#hiddenSection').removeClass("d-none");
 
+};
+
+function showErrorSection(){
+	$('#errorSection').removeClass("d-none");
 }
 
+function hideErrorSection(){
+	$('#errorSection').addClass("d-none");
+}
 // --- Other DOM manipulations ---
 
 // Displays nav bar elements
-function showNavElem(){
+// function showNavElem(){
+// 	console.log (`showNavElem function accessed`);
 
-}
+// }
 
-// Hides nav bar elements
-function hideNavElem(){
+// // Hides nav bar elements
+// function hideNavElem(){
+// 	console.log (`hideNavElem function accessed`);
 
-}
+// }
 
-// Hides section containing h2 elements
-function hideMainContent(){
+// // Hides section containing h2 elements
+// function hideMainContent(){
+// 	console.log (`hideMainContent function accessed`);
 
-}
+// }
 
-// Implements scrollspy
-function showScrollSpy (){
+// // Implements scrollspy
+// function showScrollSpy (){
+// 	console.log (`showScrollSpy function accessed`);
 
-}
+// }
 
 
 // ---Other functions---
 
 // Summary: creates storage place for results of character details pull
 // Details: Callback function for getCapiCharDetails. This will update the global variable capiCharDetails with the json object so multiple functions can access the information without making unnecessary API calls
-function updateCapiCharDetails(data){
+function updateCapiCharDetails(apiData){
+	console.log (`updateCapiCharDetails function accessed`);
+	capiCharDetails=apiData;
+	console.log(capiCharDetails);
+	loadValidCharDom();
+};
 
-}
+function updateGapiCharDetails(apiData){
+	console.log (`updateGapiCharDetails function accessed`);	
+	gapiCharDetails=apiData;
+};
 
 // --- Event Listeners ---
 
-// Expand or Collapse an H2 element
 
 // Home function that clears all added elements and returns to original screen
 
@@ -181,5 +454,15 @@ function updateCapiCharDetails(data){
 // Details: Event Listener. This reads the value the user submits in the search box and updates the global variable userSearchData. It will also trigger the getCapiCharId api pull function, passing through userSearchData and reviewCapiChar callbackfunction
 
 function getUserSubmitValue (){
+	$('.searchButton').on('click', function (event) {
+		console.log (`getUserSubmitValue function accessed`);
+		event.preventDefault();
+		hideErrorSection();
+		userSearchData = $(".searchBox").val();
+		console.log (`This is what the user searched for: ${userSearchData}`);
+		$('.searchBox').val("");
+		getCapiCharId (reviewCapiChar);	
+	})
+};
 
-}
+$(getUserSubmitValue);

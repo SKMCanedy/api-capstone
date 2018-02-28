@@ -33,50 +33,54 @@
         <form>
           <div class="form-group searchForm">
             <label for="searchForm"></label>
-            <input type="text" class="form-control" id="searchForm" placeholder="Enter a comic book character">
+            <input type="text" class="form-control searchBox" id="searchForm" placeholder="Enter a comic book character">
           </div>
-          <button type="submit" class="btn btn-primary">Search</button>
+          <button type="submit" class="btn btn-primary searchButton">Search</button>
         </form>
       </div>
 
-
-      <div class="container charInfo contentDiv text-center">
-        character picture and description
+      <div id = "errorSection" class = "d-none container contentDiv">
+      	Error message would display here
       </div>
 
-      <div class="container comicInfo contentDiv">
-        <a class="btn btn-primary container" data-toggle="collapse" href="#comicDiv" role="button" aria-expanded="false" aria-controls="collapseExample">
-          Comics
-        </a>
-        <div class="collapse" id="comicDiv">
-          <div class="card card-body">
-          comic pics and descriptions
-          </div>
-        </div>
-      </div>
+      <div id = "hiddenSection" class="d-none">
+	      <div class="container charInfo contentDiv text-center">
+	        character picture and description
+	      </div>
 
-      <div class="container movieInfo contentDiv">
-        <a class="btn btn-primary container" data-toggle="collapse" href="#movieDiv" role="button" aria-expanded="false" aria-controls="collapseExample">
-          Movies
-        </a>
-        <div class="collapse" id="movieDiv">
-          <div class="card card-body">
-          movie pics and descriptions
-          </div>
-        </div>
-      </div>
+	      <div class="container contentDiv">
+	        <a class="btn btn-primary container" data-toggle="collapse" href="#comicDiv" role="button" aria-expanded="false" aria-controls="collapseExample">
+	          Comics
+	        </a>
+	        <div class="collapse" id="comicDiv">
+	          <div class="card card-body comicInfo">
+	          comic pics and descriptions
+	          </div>
+	        </div>
+	      </div>
 
-      <div class="container gameInfo contentDiv">
-        <a class="btn btn-primary container" data-toggle="collapse" href="#gameDiv" role="button" aria-expanded="false" aria-controls="collapseExample">
-          Games
-        </a>
-        <div class="collapse" id="gameDiv">
-          <div class="card card-body">
-          game pics and descriptions
-          </div>
-        </div>
-      </div>
+	      <div class="container contentDiv">
+	        <a class="btn btn-primary container" data-toggle="collapse" href="#movieDiv" role="button" aria-expanded="false" aria-controls="collapseExample">
+	          Movies
+	        </a>
+	        <div class="collapse" id="movieDiv">
+	          <div class="card card-body movieInfo">
+	          movie pics and descriptions
+	          </div>
+	        </div>
+	      </div>
 
+	      <div class="container contentDiv">
+	        <a class="btn btn-primary container" data-toggle="collapse" href="#gameDiv" role="button" aria-expanded="false" aria-controls="collapseExample">
+	          Games
+	        </a>
+	        <div class="collapse" id="gameDiv">
+	          <div class="card card-body gameInfo">
+	          game pics and descriptions
+	          </div>
+	        </div>
+	      </div>
+		</div>
     </main>
 
     <footer class="page-footer fixed-bottom text-center">
@@ -86,9 +90,9 @@
     </footer>
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="index.js"></script>
   </body>
 </html>
