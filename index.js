@@ -256,6 +256,7 @@ function loadValidCapiDom (){
 	reviewCapiComic();
 	reviewCapiMovie();
 	showMainContent();
+	showNavLinks();
 };
 
 function loadValidGapiDom(){
@@ -269,10 +270,10 @@ function insertCharInfo(){
 	hideAlertSection();
 	let charDetailsString = `
 		<div class="card text-center" style="width: 18rem;">
-			<h2>${capiCharDetails.results.name}</h2>
+			<h2 class="bangersFont">${capiCharDetails.results.name}</h2>
 			<img class="card-img-top" src="${capiCharDetails.results.image.medium_url}" alt="Image of ${capiCharDetails.results.name}">
 			<div class="card-body">
-		    	<p class="card-text">${capiCharDetails.results.deck}</p>
+		    	<p class="card-text">${capiCharDetails.results.deck}  <br><br> For more information visit <a target="_blank" href="${capiCharDetails.results.site_detail_url}">ComicVine</a> </p>
 		  	</div>
 		</div>`
 	$(".charInfo").html(charDetailsString);
@@ -282,15 +283,28 @@ function insertCharInfo(){
 function insertComicInfo(apiData){
 	console.log (`insertComicInfo function accessed`);
 	console.log(apiData);
-	let comicDetailsString = `
-		<div class="card" style="width: 18rem;">
-			<p>${apiData.results[0].name}</p>
-		  	<img class="card-img-top" src="${apiData.results[0].image.medium_url}" alt="Image of ${apiData.results[0].name}">
-		  	<div class="card-body">
-		    <p class="card-text">${apiData.results[0].description}</p>
-		  </div>
+	let comicDetailsString =`
+		<div class="container resultDetailsDiv border border-danger rounded">
+			<div class="row align-items-center">
+				<div class = "col-sm-4">
+					<img class="img-fluid" src="${apiData.results[0].image.medium_url}" alt="Image of ${apiData.results[0].name}">
+				</div>
+				<div class = "col-sm-8 text-left">
+					<h2 class = "bangersFont">${apiData.results[0].name}</h2><br>
+					<p>${apiData.results[0].description} <br><br> For more information visit <a target="_blank" href="${apiData.results[0].site_detail_url}">ComicVine</a></p>
+				</div>
+			</div>
 		</div>
 	`;
+	// let comicDetailsString = `
+	// 	<div class="card" style="width: 18rem;">
+	// 		<p>${apiData.results[0].name}</p>
+	// 	  	<img class="card-img-top" src="${apiData.results[0].image.medium_url}" alt="Image of ${apiData.results[0].name}">
+	// 	  	<div class="card-body">
+	// 	    <p class="card-text">${apiData.results[0].description} <br><br> For more information visit <a target="_blank" href="${apiData.results[0].site_detail_url}">ComicVine</a></p>
+	// 	  </div>
+	// 	</div>
+	// `;
 
 	$('.comicInfo').append(comicDetailsString);
 };
@@ -303,7 +317,7 @@ function insertMovieInfo(apiData){
 		<div class="card" style="width: 18rem;">
 		  <img class="card-img-top" src="${apiData.results[0].image.medium_url}" alt="Image of ${apiData.results[0].name}">
 		  <div class="card-body">
-		    <p class="card-text">${apiData.results[0].name}</p>
+		    <p class="card-text">${apiData.results[0].name}  <br><br> For more information visit <a target="_blank" href="${apiData.results[0].site_detail_url}">ComicVine</a></p>
 		  </div>
 		</div>
 	`;
@@ -321,7 +335,7 @@ function insertGameInfo(apiData){
 			<p>${apiData.results[0].name}</p>
 			<img class="card-img-top" src="${apiData.results[0].image.medium_url}" alt="Image of ${apiData.results[0].name}">
 			<div class="card-body">
-		    <p class="card-text">${apiData.results[0].deck}</p>
+		    <p class="card-text">${apiData.results[0].deck}  <br><br> For more information visit <a target="_blank" href="${apiData.results[0].site_detail_url}">GiantBomb</a></p>
 		  </div>
 		</div>
 	`;
@@ -329,17 +343,30 @@ function insertGameInfo(apiData){
 	$('.gameInfo').append(gameDetailsString);
 };
 
-// unhides section containing h2 elements
+// unhides section containing detail elements
 function showMainContent(){
 	console.log (`showMainContent function accessed`);
 	$('#hiddenSection').removeClass("d-none");
 
 };
 
-// Hides section containing h2 elements
+// Hides section containing detail elements
 function hideMainContent(){
 	console.log (`hideMainContent function accessed`);
 	$('#hiddenSection').addClass("d-none");	
+}
+
+// unhides section containing Nav links
+function showNavLinks(){
+	console.log (`showNavLinks function accessed`);
+	$('#hiddenNav').removeClass("d-none");
+
+};
+
+// Hides section containing Nav links
+function hideNavLinks(){
+	console.log (`hideNavLinks function accessed`);
+	$('#hiddenNav').addClass("d-none");	
 }
 
 // Shows Alert Section
@@ -413,6 +440,7 @@ function getUserSubmitValue (){
 	$('.searchButton').on('click', function (event) {
 		console.log (`getUserSubmitValue function accessed`);
 		event.preventDefault();
+		hideNavLinks();
 		hideAlertSection();
 		hideMainContent();
 		clearContent();
