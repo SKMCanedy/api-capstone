@@ -26,6 +26,7 @@
     <main>
       <div class="container siteDescription text-center">
         <p>Search a comic book character below and discover which comics, movies, and video games that character has been in.</p>
+        <p>Note! This search is punctuation-sensitive. That is, if you can't find a character, be sure you've added proper spaces and/or hyphens. For example, to see information on the popular Spider-Man, you'll need the hyphen. Otherwise you might get something else!</p>
       </div>
 
 
@@ -39,12 +40,12 @@
         </form>
       </div>
 
-      <div id = "errorSection" class = "d-none container contentDiv">
-      	Error message would display here
+      <div id = "alertSection" class = "d-none container contentDiv">
+      	Alert message would display here
       </div>
 
       <div id = "hiddenSection" class="d-none">
-	      <div class="container charInfo contentDiv text-center">
+	      <div class="container contentDiv text-center charInfo detailSection">
 	        character picture and description
 	      </div>
 
@@ -53,7 +54,7 @@
 	          Comics
 	        </a>
 	        <div class="collapse" id="comicDiv">
-	          <div class="card card-body comicInfo">
+	          <div class="card card-body comicInfo detailSection">
 	          comic pics and descriptions
 	          </div>
 	        </div>
@@ -64,7 +65,7 @@
 	          Movies
 	        </a>
 	        <div class="collapse" id="movieDiv">
-	          <div class="card card-body movieInfo">
+	          <div class="card card-body movieInfo detailSection">
 	          movie pics and descriptions
 	          </div>
 	        </div>
@@ -75,7 +76,7 @@
 	          Games
 	        </a>
 	        <div class="collapse" id="gameDiv">
-	          <div class="card card-body gameInfo">
+	          <div class="card card-body gameInfo detailSection">
 	          game pics and descriptions
 	          </div>
 	        </div>
@@ -83,11 +84,11 @@
 		</div>
     </main>
 
-    <footer class="page-footer fixed-bottom text-center">
+<!--     <footer class="page-footer">
       <div class="container-fluid">
           <p>Annotations here</p>
       </div>
-    </footer>
+    </footer> -->
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
