@@ -129,7 +129,7 @@ function gatherComicData (apiData){
 	console.log (`gatherComicData function accessed`);
 	let comicIds= [capiCharDetails.results.first_appeared_in_issue.id];
 	for (let i=0; i<capiCharDetails.results.issue_credits.length; i++){
-		if (i>5){
+		if (i>3){
 			break;
 		};
 		comicIds.push(capiCharDetails.results.issue_credits[i].id);	
@@ -164,7 +164,7 @@ function gatherGameData (apiData){
 	console.log (`gatherGameData function accessed`);
 	const gameIds = [gapiCharDetails.results.first_appeared_in_game.id];
 	for (let i=0; i<gapiCharDetails.results.games.length; i++){
-		if (i>5){
+		if (i>3){
 			break;
 		};		
 		gameIds.push(gapiCharDetails.results.games[i].id);
@@ -269,14 +269,26 @@ function insertCharInfo(){
 	console.log (`insertCharInfo function accessed`);
 	hideAlertSection();
 	let charDetailsString = `
-		<div class="card text-center" style="width: 18rem;">
-			<h2 class="bangersFont">${capiCharDetails.results.name}</h2>
-			<img class="card-img-top" src="${capiCharDetails.results.image.medium_url}" alt="Image of ${capiCharDetails.results.name}">
-			<div class="card-body">
-		    	<p class="card-text">${capiCharDetails.results.deck}  <br><br> For more information visit <a target="_blank" href="${capiCharDetails.results.site_detail_url}">ComicVine</a> </p>
-		  	</div>
-		</div>`
+		<div class="container resultDetailsDiv align-items-center">
+			<div class = "text-center">
+				<h2 class="bangersFont">${capiCharDetails.results.name}</h2>
+			</div>
+			<div class = "col-sm-4 center-element md-mar-top">
+				<img class="img-fluid" src="${capiCharDetails.results.image.medium_url}" alt="Image of ${capiCharDetails.results.name}">
+			</div>
+			<div class = "text-center md-mar-top">
+				<p>${capiCharDetails.results.deck}<br><br> For more information visit <a target="_blank" href="${capiCharDetails.results.site_detail_url}">ComicVine</a></p>
+			</div>
+		</div>
+`
 	$(".charInfo").html(charDetailsString);
+		// <div class="card text-center" style="width: 18rem;">
+		// 	<h2 class="bangersFont">${capiCharDetails.results.name}</h2>
+		// 	<img class="card-img-top" src="${capiCharDetails.results.image.medium_url}" alt="Image of ${capiCharDetails.results.name}">
+		// 	<div class="card-body">
+		//     	<p class="card-text">${capiCharDetails.results.deck}  <br><br> For more information visit <a target="_blank" href="${capiCharDetails.results.site_detail_url}">ComicVine</a> </p>
+		//   	</div>
+		// </div>
 
 };
 // Inserts capi comic information
@@ -296,31 +308,34 @@ function insertComicInfo(apiData){
 			</div>
 		</div>
 	`;
-	// let comicDetailsString = `
-	// 	<div class="card" style="width: 18rem;">
-	// 		<p>${apiData.results[0].name}</p>
-	// 	  	<img class="card-img-top" src="${apiData.results[0].image.medium_url}" alt="Image of ${apiData.results[0].name}">
-	// 	  	<div class="card-body">
-	// 	    <p class="card-text">${apiData.results[0].description} <br><br> For more information visit <a target="_blank" href="${apiData.results[0].site_detail_url}">ComicVine</a></p>
-	// 	  </div>
-	// 	</div>
-	// `;
-
 	$('.comicInfo').append(comicDetailsString);
 };
 
-// Inserts capi movie info
+// Inserts capi movie info - Note: api data does not reliably return deck/description data so purposely not including
 function insertMovieInfo(apiData){
 	console.log (`insertMovieInfo function accessed`);
 	console.log(apiData);
-	let movieDetailsString = `
-		<div class="card" style="width: 18rem;">
-		  <img class="card-img-top" src="${apiData.results[0].image.medium_url}" alt="Image of ${apiData.results[0].name}">
-		  <div class="card-body">
-		    <p class="card-text">${apiData.results[0].name}  <br><br> For more information visit <a target="_blank" href="${apiData.results[0].site_detail_url}">ComicVine</a></p>
-		  </div>
+	let movieDetailsString =`
+		<div class="container resultDetailsDiv border border-danger rounded blackBgColor">
+			<div class="row align-items-center">
+				<div class = "col-sm-4">
+					<img class="img-fluid" src="${apiData.results[0].image.medium_url}" alt="Image of ${apiData.results[0].name}">
+				</div>
+				<div class = "col-sm-8 text-left">
+					<h2 class = "bangersFont">${apiData.results[0].name}</h2><br>
+					<p>For more information visit <a target="_blank" href="${apiData.results[0].site_detail_url}">GiantBomb</a></p>
+				</div>
+			</div>
 		</div>
 	`;
+
+
+	// 	<div class="card" style="width: 18rem;">
+	// 	  <img class="card-img-top" src="${apiData.results[0].image.medium_url}" alt="Image of ${apiData.results[0].name}">
+	// 	  <div class="card-body">
+	// 	    <p class="card-text">${apiData.results[0].name}  <br><br> For more information visit <a target="_blank" href="${apiData.results[0].site_detail_url}">ComicVine</a></p>
+	// 	  </div>
+	// 	</div>
 
 	$('.movieInfo').append(movieDetailsString);
 };
@@ -331,16 +346,27 @@ function insertGameInfo(apiData){
 	console.log (`insertGameInfo function accessed`);
 	console.log(apiData);
 	let gameDetailsString = `
-		<div class="card" style="width: 18rem;">
-			<p>${apiData.results[0].name}</p>
-			<img class="card-img-top" src="${apiData.results[0].image.medium_url}" alt="Image of ${apiData.results[0].name}">
-			<div class="card-body">
-		    <p class="card-text">${apiData.results[0].deck}  <br><br> For more information visit <a target="_blank" href="${apiData.results[0].site_detail_url}">GiantBomb</a></p>
-		  </div>
+		<div class="container resultDetailsDiv border border-danger rounded blackBgColor">
+			<div class="row align-items-center">
+				<div class = "col-sm-4">
+					<img class="img-fluid" src="${apiData.results[0].image.medium_url}" alt="Image of ${apiData.results[0].name}">
+				</div>
+				<div class = "col-sm-8 text-left">
+					<h2 class = "bangersFont">${apiData.results[0].name}</h2><br>
+					<p>${apiData.results[0].deck} <br><br> For more information visit <a target="_blank" href="${apiData.results[0].site_detail_url}">ComicVine</a></p>
+				</div>
+			</div>
 		</div>
 	`;
 
 	$('.gameInfo').append(gameDetailsString);
+		// <div class="card" style="width: 18rem;">
+		// 	<p>${apiData.results[0].name}</p>
+		// 	<img class="card-img-top" src="${apiData.results[0].image.medium_url}" alt="Image of ${apiData.results[0].name}">
+		// 	<div class="card-body">
+		//     <p class="card-text">${apiData.results[0].deck}  <br><br> For more information visit <a target="_blank" href="${apiData.results[0].site_detail_url}">GiantBomb</a></p>
+		//   </div>
+		// </div>
 };
 
 // unhides section containing detail elements

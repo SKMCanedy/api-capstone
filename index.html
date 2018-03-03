@@ -42,31 +42,29 @@
     <main>
       <div class="container siteDescription text-center">
       	<h2 class ="bangersFont lg-font"> Cerebro </h2>
-        <p>Search a comic book character below and discover which comics, movies, and video games that character has been in.</p>
+        <p>Search a comic book character below and discover a sampling of comics, movies, and video games that character has been in.</p>
         <p>Note! This search is punctuation-sensitive. That is, if you can't find a character, be sure you've added proper spaces and/or hyphens. For example, to see information on the popular Spider-Man, you'll need the hyphen. Otherwise you might get something else!</p>
       </div>
 
 		<div class = "container">
-			<div class="input-group center-element">
+			<div class="input-group center-element form-group">
 				<input type="text" class="form-control searchBox" placeholder="Enter a comic book character" aria-label="Search Field">
-				<div class="input-group-append">
-			    	<button class="btn btn-primary searchButton bangersFont md-font redBgColor black-border" type="button">Search</button>
-			    </div>
+			    <button class="btn btn-primary searchButton bangersFont md-font redBgColor black-border input-group-append" type="submit">Search</button>
 			</div>
 		</div>
 
 
-      <div id = "alertSection" class = "d-none container contentDiv">
+      <div id = "alertSection" class = "d-none container md-mar-top">
       	Alert message would display here
       </div>
 
       <div id = "hiddenSection" class="d-none">
-	      <div class="container contentDiv text-center charInfo detailSection">
+	      <div class="container text-center charInfo detailSection">
 	        character picture and description
 	      </div>
 
-		  <div class="container contentDiv">
-	        <a class="btn btn-primary container redBgColor black-border" data-toggle="collapse" href="#comicDiv" id="comics"role="button" aria-expanded="false" aria-controls="collapseExample">
+		  <div class="container">
+	        <a class="btn btn-primary container redBgColor black-border md-mar-top" data-toggle="collapse" href="#comicDiv" id="comics" role="button" aria-expanded="false" aria-controls="collapseExample">
 	          <h2 class ="bangersFont">Comics</h2>
 	        </a>
 	        <div class="collapse" id="comicDiv">
@@ -76,23 +74,23 @@
 	        </div>
 	      </div>
 
-	      <div id="movies" class="container contentDiv">
-	        <a class="btn btn-primary container redBgColor black-border" data-toggle="collapse" href="#movieDiv" role="button" aria-expanded="false" aria-controls="collapseExample">
+	      <div id="movies" class="container">
+	        <a class="btn btn-primary container redBgColor black-border md-mar-top" data-toggle="collapse" href="#movieDiv" role="button" aria-expanded="false" aria-controls="collapseExample">
 	          <h2 class ="bangersFont">Movies</h2>
 	        </a>
 	        <div class="collapse" id="movieDiv">
-	          <div class="card card-body movieInfo detailSection">
+	          <div class="movieInfo detailSection container">
 	          movie pics and descriptions
 	          </div>
 	        </div>
 	      </div>
 
-	      <div id="games" class="container contentDiv">
-	        <a class="btn btn-primary container redBgColor black-border" data-toggle="collapse" href="#gameDiv" role="button" aria-expanded="false" aria-controls="collapseExample">
+	      <div id="games" class="container">
+	        <a class="btn btn-primary container redBgColor black-border md-mar-top" data-toggle="collapse" href="#gameDiv" role="button" aria-expanded="false" aria-controls="collapseExample">
 	          <h2 class ="bangersFont">Games</h2>
 	        </a>
 	        <div class="collapse" id="gameDiv">
-	          <div class="card card-body gameInfo detailSection">
+	          <div class="gameInfo detailSection container">
 	          game pics and descriptions
 	          </div>
 	        </div>
@@ -100,13 +98,7 @@
 		</div>
     </main>
 
-<!--     <footer class="page-footer">
-      <div class="container-fluid">
-          <p>Annotations here</p>
-      </div>
-    </footer> -->
 
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
