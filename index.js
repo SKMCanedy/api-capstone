@@ -28,7 +28,6 @@ function getCapiCharId (callback){
 
 // Summary: Specific character data pull - capi
 // Details: This accesses the api character detail url received from getCapiCharID This provides more detail about a character that other functions will rely on. Callback: reviewCapiChar
-
 function getCapiCharDetails (charURL, callback){
 	console.log (`getCapiCharDetails function accessed`);
 	const capiCharDetailsUrl = "https://cors-anywhere.herokuapp.com/"+charURL;
@@ -42,8 +41,6 @@ function getCapiCharDetails (charURL, callback){
 
 // Summary: Comic book info data pull - capi
 // Details: This pulls specific comic book data from Comic Vine Issues API
-
-
 function getCapiComicDetails (comicId, callback){
 	console.log (`getCapiComicDetails function accessed`);
 	const capiComicDetailsUrl = `https://cors-anywhere.herokuapp.com/https://comicvine.gamespot.com/api/issues/`;
@@ -58,7 +55,6 @@ function getCapiComicDetails (comicId, callback){
 
 // Summary: Movie info data pull - capi
 // Details: This pulls specific movie data from Comic Vine Movie API
-
 function getCapiMovieDetails (movieId, callback){
 	console.log (`getCapiMovieDetails function accessed`);
 	const capiMovieDetailsUrl = `https://cors-anywhere.herokuapp.com/https://comicvine.gamespot.com/api/movies/`;
@@ -124,7 +120,6 @@ function getGapiGameDetails (gameId, callback){
 
 
 // Using capi data, creates an array of ids of up to 5 comic books the character has been in. this allows getCapiComicDetails to pull specific comic information
-
 function gatherComicData (apiData){
 	console.log (`gatherComicData function accessed`);
 	let comicIds= [capiCharDetails.results.first_appeared_in_issue.id];
@@ -146,7 +141,6 @@ function gatherComicData (apiData){
 
 
 // Using capi data, creates an array of ids of up to 5 movies the character has been in. this allows getCapiMovieDetails to pull specific movie information
-
 function gatherMovieData (apiData){
 	console.log (`gatherMovieData function accessed`);
 	let movieIds= [];
@@ -163,7 +157,6 @@ function gatherMovieData (apiData){
 };
 
 // Using gapi data, creates an array of ids of up to 5 games the character has been in. this allows getGapiGameDetails to pull specific game information
-
 function gatherGameData (apiData){
 	console.log (`gatherGameData function accessed`);
 	const gameIds = [gapiCharDetails.results.first_appeared_in_game.id];
@@ -183,7 +176,6 @@ function gatherGameData (apiData){
 
 
 // Summary: Reviews existence of character in capi. If so, will trigger api pulls to continue loading information. if not, it will call a function to display an invalid search message
-
 function reviewCapiChar (apiData){
 	console.log (`reviewCapiChar function accessed`);
 	if (apiData.number_of_total_results>= 1) {
@@ -197,7 +189,6 @@ function reviewCapiChar (apiData){
 };
 
 // Summary: Reviews comic book character info from capi to determine what to put into comic section DOM
-
 function reviewCapiComic () {
 	console.log (`reviewCapiComic function accessed`);
 	if (capiCharDetails.results.issue_credits[0] != null){
@@ -209,7 +200,6 @@ function reviewCapiComic () {
 };
 
 // Summary: Reviews movie info from capi to determine what to put into movie section DOM
-
 function reviewCapiMovie () {
 	console.log (`reviewCapiMovie function accessed`);
 	if (capiCharDetails.results.movies[0] != null){
@@ -219,8 +209,9 @@ function reviewCapiMovie () {
 		insertNoInfoFound('.movieInfo');
 	}	
 };
-// Summary: Compares gapi info against user input to determine what to put into game section DOM
 
+
+// Summary: Compares gapi info against user input to determine what to put into game section DOM
 function reviewGapiGame () {
 	console.log (`reviewGapiGame function accessed`);
 	if (gapiCharDetails.results.games[0] != null){
@@ -232,7 +223,7 @@ function reviewGapiGame () {
 };
 
 
-// ---DOM Manipulation Functions
+// --- DOM Manipulation Functions ---
 
 // Inserts Invalid Search error message in main dom area. Called when a user submits an invalid search (non comic book character)
 function insertInvalidSearch (){
@@ -243,7 +234,7 @@ function insertInvalidSearch (){
 			<p>Did you spell it correctly? Did the punctuation trip you up?</p>
 			<p>Maybe "${userSearchData}" is actually known by a different name (these comic characters and all their aliases. Sheesh).
 			</p>
-			<p>Let's try that again.</p>
+			<p>Let's try again.</p>
 		</div>`);
 	showAlertSection();
 };
@@ -261,7 +252,6 @@ function searchingMessage(){
 };
 
 // Summary: Houses the calls to Dom updates when a valid character has been searched for
-
 function loadValidCapiDom (){
 	console.log (`loadValidCapiDom function accessed`);
 	insertCharInfo();
@@ -271,6 +261,7 @@ function loadValidCapiDom (){
 	showNavLinks();
 };
 
+//
 function loadValidGapiDom(){
 	console.log (`loadValidGapiDom function accessed`);
 	reviewGapiGame();
@@ -291,8 +282,8 @@ function insertCharInfo(){
 			<div class = "text-center md-mar-top">
 				<p>${capiCharDetails.results.deck}<br><br> For more information visit <a target="_blank" href="${capiCharDetails.results.site_detail_url}">ComicVine</a></p>
 			</div>
-		</div>
-`
+		</div>`;
+
 	$(".charInfo").html(charDetailsString);
 
 };
@@ -403,7 +394,6 @@ function clearContent(){
 // ---Other functions---
 
 // Summary: creates storage place for results of capi character details pull
-
 function updateCapiCharDetails(apiData){
 	console.log (`updateCapiCharDetails function accessed`);
 	capiCharDetails=apiData;
@@ -412,7 +402,6 @@ function updateCapiCharDetails(apiData){
 };
 
 // Summary: creates storage place for results of gapi character details pull
-
 function updateGapiCharDetails(apiData){
 	console.log (`updateGapiCharDetails function accessed`);	
 	gapiCharDetails=apiData;
@@ -422,19 +411,10 @@ function updateGapiCharDetails(apiData){
 
 // --- Event Listeners ---
 
-// Resets back to home page
-
-// function resetPage () {
-// 	$('#reset-page').on ('click', function(){
-// 		window.location.reload(true);
-// 	})
-// }
-
 // Summary: Evaluates & stores cust input upon button click
 function getUserSubmitValue (){
 	$('.searchButton').on('click', function (event) {
 		console.log (`getUserSubmitValue function accessed`);
-		// resetPage();
 		event.preventDefault();
 		hideNavLinks();
 		hideAlertSection();
