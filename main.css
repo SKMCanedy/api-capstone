@@ -7,7 +7,7 @@
 }
 
 .red-text {
-	color: #DF0101;
+	color: #FE6262;
 }
 
 .bangersFont {
@@ -40,6 +40,10 @@ body {
 
 .md-mar-top {
 	margin-top: 24px;
+}
+
+.md-font {
+	font-size: 18px;
 }
 
 .nav-font {

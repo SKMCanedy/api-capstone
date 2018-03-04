@@ -129,9 +129,10 @@ function gatherComicData (apiData){
 	console.log (`gatherComicData function accessed`);
 	let comicIds= [capiCharDetails.results.first_appeared_in_issue.id];
 	for (let i=0; i<capiCharDetails.results.issue_credits.length; i++){
-		if (capiCharDetails.results.issue_credits.length = 1){
+		if (capiCharDetails.results.issue_credits.length == 1){
 			break;
 		};
+
 		if (i>3){
 			break;
 		};
@@ -167,7 +168,7 @@ function gatherGameData (apiData){
 	console.log (`gatherGameData function accessed`);
 	const gameIds = [gapiCharDetails.results.first_appeared_in_game.id];
 	for (let i=0; i<gapiCharDetails.results.games.length; i++){
-		if (gapiCharDetails.results.games.length = 1){
+		if (gapiCharDetails.results.games.length == 1){
 			break;
 		};
 		if (i>3){
