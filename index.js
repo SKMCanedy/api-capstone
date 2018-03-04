@@ -328,7 +328,7 @@ function insertMovieInfo(apiData){
 				</div>
 				<div class = "col-sm-8 text-left">
 					<h3 class = "bangersFont">${apiData.results[0].name}</h3>
-					<p class = "description-details">For more information visit <a target="_blank" href="${apiData.results[0].site_detail_url}">GiantBomb</a></p>
+					<p class = "description-details">For more information visit <a target="_blank" href="${apiData.results[0].site_detail_url}">ComicVine</a></p>
 				</div>
 			</div>
 		</div>
@@ -349,7 +349,7 @@ function insertGameInfo(apiData){
 				</div>
 				<div class = "col-sm-8 text-left">
 					<h3 class = "bangersFont">${apiData.results[0].name}</h3>
-					<p class = "description-details">${apiData.results[0].deck} <br><br> For more information visit <a target="_blank" href="${apiData.results[0].site_detail_url}">ComicVine</a></p>
+					<p class = "description-details">${apiData.results[0].deck} <br><br> For more information visit <a target="_blank" href="${apiData.results[0].site_detail_url}">GiantBomb</a></p>
 				</div>
 			</div>
 		</div>
