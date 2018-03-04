@@ -6,51 +6,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Cerebro, a multimedia comic book character search engine.  Search a comic book character and discover a sampling of the comic books, movies, and video games the character can be found.">
 
+    <!--Fonts-->    
+	<link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Bangers" rel="stylesheet">
+
+
     <!-- CSS  -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="main.css" rel="stylesheet" type="text/css" />
 
-    <!--Fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Bangers" rel="stylesheet">
-
     <title>Cerebro</title>
   </head>
 
-  <body class ="blackBgColor white-text">
-
   	<!-- Nav Bar -->
-    <nav class="navbar fixed-top navbar-dark redBgColor" id="mainNavBar">
-    	<a class="navbar-brand bangersFont" href="#"><h1>Cerebro</h1></a>
-    	<div id="hiddenNav" class="d-none">
-		 <ul class="nav nav-pills">
-		 	<li class="nav-item">
-		    <a class="nav-link bangersFont badge-dark text-white nav-spacing md-font" href="#">Home</a>
-		  </li>
-		  <li class="nav-item">
-		    <a class="nav-link bangersFont badge-dark text-white nav-spacing md-font" href="#comics">Comics</a>
-		  </li>
-		  <li class="nav-item">
-		    <a class="nav-link bangersFont badge-dark text-white nav-spacing md-font" href="#movies">Movies</a>
-		  </li>
-		  <li class="nav-item">
-		    <a class="nav-link bangersFont badge-dark text-white nav-spacing md-font" href="#games">Games</a>
-		  </li>
-		</ul>
-		</div> 
+    <nav class="navbar fixed-top redBgColor" id="mainNavBar">
+    	<div class="container">
+	    	<div class="row justify-content-between" id="reset-page">
+	    		<a class="navbar-brand text-white bangersFont" href="#"><h1>Cerebro</h1></a>
+	    	</div>
+	    	<div id="hiddenNav" class="d-none row">
+				 	<ul class="nav nav-pills">
+						<li class="nav-item">
+					    	<a class="nav-link badge-dark text-white nav-spacing bangersFont nav-font" href="#comics">Comics</a>
+					 	</li>
+				  		<li class="nav-item">
+				   			<a class="nav-link badge-dark text-white nav-spacing bangersFont nav-font" href="#movies">Movies</a>
+				  		</li>
+				 		<li class="nav-item">
+				    		<a class="nav-link badge-dark text-white nav-spacing bangersFont nav-font" href="#games">Games</a>
+				  		</li>
+					</ul>
+			</div> 
+		</div>
     </nav>
 
+  <body class ="blackBgColor white-text">
     <main>
       <div class="container siteDescription text-center">
       	<h2 class ="bangersFont lg-font"> Cerebro </h2>
         <p>Search a comic book character below and discover a sampling of comics, movies, and video games that character has been in.</p>
-        <p>Note! This search is punctuation-sensitive. That is, if you can't find a character, be sure you've added proper spaces and/or hyphens. For example, to see information on the popular Spider-Man, you'll need the hyphen. Otherwise you might get something else!</p>
+        <p class="yellow-text bold-text">
+	        <i class="fas fa-exclamation-triangle fa-2x"></i> Be careful what you look for... <br>
+	    </p>
+	    <p> This search is sensitive. That is, if you can't find a character, be sure you've added proper spacing, punctuation and names. <br> For example, to see information on Spider-Man, you'll need the hyphen, otherwise you might get someone you were not expecting! 
+	    </p>
       </div>
 
 		<div class = "container">
-			<div class="input-group center-element form-group">
-				<input type="text" class="form-control searchBox" placeholder="Enter a comic book character" aria-label="Search Field">
-			    <button class="btn btn-primary searchButton bangersFont md-font redBgColor black-border input-group-append" type="submit">Search</button>
-			</div>
+			<form>
+				<div class="input-group center-element form-group">
+					<input type="text" class="form-control searchBox" placeholder="Enter a character" aria-label="Search Field" id="inputGroup-sizing-default">
+				    <button type="submit" class="btn btn-primary searchButton bangersFont search-font redBgColor black-border input-group-append">Search</button>
+				</div>
+			</form>
 		</div>
 
 

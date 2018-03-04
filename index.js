@@ -129,6 +129,9 @@ function gatherComicData (apiData){
 	console.log (`gatherComicData function accessed`);
 	let comicIds= [capiCharDetails.results.first_appeared_in_issue.id];
 	for (let i=0; i<capiCharDetails.results.issue_credits.length; i++){
+		if (capiCharDetails.results.issue_credits.length = 1){
+			break;
+		};
 		if (i>3){
 			break;
 		};
@@ -147,7 +150,7 @@ function gatherMovieData (apiData){
 	console.log (`gatherMovieData function accessed`);
 	let movieIds= [];
 	for (let i=0; i<capiCharDetails.results.movies.length; i++){
-		if (i>5){
+		if (i>4){
 			break;
 		};
 		movieIds.push(capiCharDetails.results.movies[i].id);
@@ -164,6 +167,9 @@ function gatherGameData (apiData){
 	console.log (`gatherGameData function accessed`);
 	const gameIds = [gapiCharDetails.results.first_appeared_in_game.id];
 	for (let i=0; i<gapiCharDetails.results.games.length; i++){
+		if (gapiCharDetails.results.games.length = 1){
+			break;
+		};
 		if (i>3){
 			break;
 		};		
@@ -230,7 +236,14 @@ function reviewGapiGame () {
 // Inserts Invalid Search error message in main dom area. Called when a user submits an invalid search (non comic book character)
 function insertInvalidSearch (){
 	console.log (`insertInvalidSearch function accessed`);
-	$('#alertSection').html(`Uh oh. We can't find that character! Did you spell it correctly? Please try again.`);
+	$('#alertSection').html(`
+		<div class = "bold-text red-text md-font text-center">
+			<p> Uh oh. We can't find that character! </p>
+			<p>Did you spell it correctly? Did the punctuation trip you up?</p>
+			<p>Maybe "${userSearchData}" is actually known by a different name (these comic characters and all their aliases. Sheesh).
+			</p>
+			<p>Let's try that again.</p>
+		</div>`);
 	showAlertSection();
 };
 
@@ -242,7 +255,7 @@ function insertNoInfoFound (divClass) {
 
 //Inserts a message to notify user that a search is in progress
 function searchingMessage(){
-	$('#alertSection').html(`<p>Searching...there's a lot of comic book characters y'know...</p>`);
+	$('#alertSection').html(`<p class= "md-mar-top yellow-text">Searching...there's a lot of comic book characters y'know...<i class="fas fa-spinner fa-spin"></i><p>`);
 	showAlertSection();
 };
 
@@ -251,8 +264,6 @@ function searchingMessage(){
 function loadValidCapiDom (){
 	console.log (`loadValidCapiDom function accessed`);
 	insertCharInfo();
-	// showNavElem();
-	// showScrollSpy();
 	reviewCapiComic();
 	reviewCapiMovie();
 	showMainContent();
@@ -282,13 +293,6 @@ function insertCharInfo(){
 		</div>
 `
 	$(".charInfo").html(charDetailsString);
-		// <div class="card text-center" style="width: 18rem;">
-		// 	<h2 class="bangersFont">${capiCharDetails.results.name}</h2>
-		// 	<img class="card-img-top" src="${capiCharDetails.results.image.medium_url}" alt="Image of ${capiCharDetails.results.name}">
-		// 	<div class="card-body">
-		//     	<p class="card-text">${capiCharDetails.results.deck}  <br><br> For more information visit <a target="_blank" href="${capiCharDetails.results.site_detail_url}">ComicVine</a> </p>
-		//   	</div>
-		// </div>
 
 };
 // Inserts capi comic information
@@ -298,12 +302,12 @@ function insertComicInfo(apiData){
 	let comicDetailsString =`
 		<div class="container resultDetailsDiv border border-danger rounded">
 			<div class="row align-items-center">
-				<div class = "col-sm-4">
+				<div class = "col-sm-4 center-element">
 					<img class="img-fluid" src="${apiData.results[0].image.medium_url}" alt="Image of ${apiData.results[0].name}">
 				</div>
 				<div class = "col-sm-8 text-left">
-					<h2 class = "bangersFont">${apiData.results[0].name}</h2><br>
-					<p>${apiData.results[0].description} <br><br> For more information visit <a target="_blank" href="${apiData.results[0].site_detail_url}">ComicVine</a></p>
+					<h3 class = "bangersFont">${apiData.results[0].name}</h3>
+					<p class = "description-details">${apiData.results[0].description} <br><br> For more information visit <a target="_blank" href="${apiData.results[0].site_detail_url}">ComicVine</a></p>
 				</div>
 			</div>
 		</div>
@@ -317,26 +321,17 @@ function insertMovieInfo(apiData){
 	console.log(apiData);
 	let movieDetailsString =`
 		<div class="container resultDetailsDiv border border-danger rounded blackBgColor">
-			<div class="row align-items-center">
+			<div class="row align-items-center center-element">
 				<div class = "col-sm-4">
 					<img class="img-fluid" src="${apiData.results[0].image.medium_url}" alt="Image of ${apiData.results[0].name}">
 				</div>
 				<div class = "col-sm-8 text-left">
-					<h2 class = "bangersFont">${apiData.results[0].name}</h2><br>
-					<p>For more information visit <a target="_blank" href="${apiData.results[0].site_detail_url}">GiantBomb</a></p>
+					<h3 class = "bangersFont">${apiData.results[0].name}</h3>
+					<p class = "description-details">For more information visit <a target="_blank" href="${apiData.results[0].site_detail_url}">GiantBomb</a></p>
 				</div>
 			</div>
 		</div>
 	`;
-
-
-	// 	<div class="card" style="width: 18rem;">
-	// 	  <img class="card-img-top" src="${apiData.results[0].image.medium_url}" alt="Image of ${apiData.results[0].name}">
-	// 	  <div class="card-body">
-	// 	    <p class="card-text">${apiData.results[0].name}  <br><br> For more information visit <a target="_blank" href="${apiData.results[0].site_detail_url}">ComicVine</a></p>
-	// 	  </div>
-	// 	</div>
-
 	$('.movieInfo').append(movieDetailsString);
 };
 
@@ -352,21 +347,14 @@ function insertGameInfo(apiData){
 					<img class="img-fluid" src="${apiData.results[0].image.medium_url}" alt="Image of ${apiData.results[0].name}">
 				</div>
 				<div class = "col-sm-8 text-left">
-					<h2 class = "bangersFont">${apiData.results[0].name}</h2><br>
-					<p>${apiData.results[0].deck} <br><br> For more information visit <a target="_blank" href="${apiData.results[0].site_detail_url}">ComicVine</a></p>
+					<h3 class = "bangersFont">${apiData.results[0].name}</h3>
+					<p class = "description-details">${apiData.results[0].deck} <br><br> For more information visit <a target="_blank" href="${apiData.results[0].site_detail_url}">ComicVine</a></p>
 				</div>
 			</div>
 		</div>
 	`;
 
 	$('.gameInfo').append(gameDetailsString);
-		// <div class="card" style="width: 18rem;">
-		// 	<p>${apiData.results[0].name}</p>
-		// 	<img class="card-img-top" src="${apiData.results[0].image.medium_url}" alt="Image of ${apiData.results[0].name}">
-		// 	<div class="card-body">
-		//     <p class="card-text">${apiData.results[0].deck}  <br><br> For more information visit <a target="_blank" href="${apiData.results[0].site_detail_url}">GiantBomb</a></p>
-		//   </div>
-		// </div>
 };
 
 // unhides section containing detail elements
@@ -411,30 +399,6 @@ function clearContent(){
 }
 
 
-
-// --- Other DOM manipulations ---
-
-// Displays nav bar elements
-// function showNavElem(){
-// 	console.log (`showNavElem function accessed`);
-
-// }
-
-// // Hides nav bar elements
-// function hideNavElem(){
-// 	console.log (`hideNavElem function accessed`);
-
-// }
-
-
-// }
-
-// // Implements scrollspy
-// function showScrollSpy (){
-// 	console.log (`showScrollSpy function accessed`);
-// }
-
-
 // ---Other functions---
 
 // Summary: creates storage place for results of capi character details pull
@@ -457,14 +421,19 @@ function updateGapiCharDetails(apiData){
 
 // --- Event Listeners ---
 
+// Resets back to home page
 
-// Home function that clears all added elements and returns to original screen
-
+// function resetPage () {
+// 	$('#reset-page').on ('click', function(){
+// 		window.location.reload(true);
+// 	})
+// }
 
 // Summary: Evaluates & stores cust input upon button click
 function getUserSubmitValue (){
 	$('.searchButton').on('click', function (event) {
 		console.log (`getUserSubmitValue function accessed`);
+		// resetPage();
 		event.preventDefault();
 		hideNavLinks();
 		hideAlertSection();

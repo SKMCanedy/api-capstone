@@ -2,8 +2,20 @@
 	color: #FFFFFF;
 }
 
+.yellow-text {
+	color: #F7FE2E;
+}
+
+.red-text {
+	color: #DF0101;
+}
+
 .bangersFont {
 	font-family: 'Bangers', cursive;	
+}
+
+.bold-text {
+	font-weight: bold;
 }
 
 .redBgColor {
@@ -18,8 +30,11 @@
 	border-color: #000000;
 }
 
+body {
+	padding-top: 135px;
+}
+
 .siteDescription {
-	margin-top: 100px;
 	margin-bottom: 50px;
 }
 
@@ -27,9 +42,11 @@
 	margin-top: 24px;
 }
 
-
-.md-font {
-	font-size: 24px;
+.nav-font {
+	font-size: 20px;
+}
+.search-font {
+	font-size: 28px;
 }
 
 .lg-font {
@@ -48,4 +65,5 @@
 
 .nav-spacing {
 	margin-left: 4px;
+	margin-top: 2px;
 }
