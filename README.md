@@ -15,13 +15,20 @@ Expandable Sections
 ![Screenshot of Expandable Sections](https://github.com/SKMCanedy/api-capstone/blob/master/SS-Collapsed.png "Expandable Sections")
 
 ## Link to Site
+https://skmcanedy.github.io/cerebro/
 
 ## API Connections
 ComicVine - https://comicvine.gamespot.com/api/
 
 GiantBomb - https://www.giantbomb.com/api/
 
-## Libraries & Stylesheets
+## Technologies, Libraries, & Stylesheets
+HTML
+
+CSS
+
+Javascript
+
 JQuery
 
 Bootstrap (including Popper.js)
