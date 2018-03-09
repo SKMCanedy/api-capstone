@@ -16,7 +16,7 @@ let gapiCharDetails={};
 // Details: This accesses the Comic Vine Characters API with the main goal to pull the api_detail_url so that specific character details can be pulled by getCapiCharDetails
 function getCapiCharId (callback){
 	console.log (`getCapiCharId function accessed`);
-	const capiCharSearchUrl = "https://cors-anywhere.herokuapp.com/https://www.comicvine.com/api/characters/";
+	const capiCharSearchUrl = "https://cryptic-headland-94862.herokuapp.com/https://www.comicvine.com/api/characters/";
 	const query = {
 		api_key: "77e74b104e90bbe37c3f4576a41e5c7a37c87520",
 		format: "json",
@@ -30,7 +30,7 @@ function getCapiCharId (callback){
 // Details: This accesses the api character detail url received from getCapiCharID This provides more detail about a character that other functions will rely on. Callback: reviewCapiChar
 function getCapiCharDetails (charURL, callback){
 	console.log (`getCapiCharDetails function accessed`);
-	const capiCharDetailsUrl = "https://cors-anywhere.herokuapp.com/"+charURL;
+	const capiCharDetailsUrl = "https://cryptic-headland-94862.herokuapp.com/"+charURL;
 	const query = {
 		api_key: "77e74b104e90bbe37c3f4576a41e5c7a37c87520",
 		format: "json",
@@ -43,7 +43,7 @@ function getCapiCharDetails (charURL, callback){
 // Details: This pulls specific comic book data from Comic Vine Issues API
 function getCapiComicDetails (comicId, callback){
 	console.log (`getCapiComicDetails function accessed`);
-	const capiComicDetailsUrl = `https://cors-anywhere.herokuapp.com/https://comicvine.gamespot.com/api/issues/`;
+	const capiComicDetailsUrl = `https://cryptic-headland-94862.herokuapp.com/https://comicvine.gamespot.com/api/issues/`;
 	const query = {
 		api_key: "77e74b104e90bbe37c3f4576a41e5c7a37c87520",
 		format: "json",
@@ -57,7 +57,7 @@ function getCapiComicDetails (comicId, callback){
 // Details: This pulls specific movie data from Comic Vine Movie API
 function getCapiMovieDetails (movieId, callback){
 	console.log (`getCapiMovieDetails function accessed`);
-	const capiMovieDetailsUrl = `https://cors-anywhere.herokuapp.com/https://comicvine.gamespot.com/api/movies/`;
+	const capiMovieDetailsUrl = `https://cryptic-headland-94862.herokuapp.com/https://comicvine.gamespot.com/api/movies/`;
 	const query = {
 		api_key: "77e74b104e90bbe37c3f4576a41e5c7a37c87520",
 		format: "json",
@@ -71,7 +71,7 @@ function getCapiMovieDetails (movieId, callback){
 // Character ID - Giantbomb API (gapi)
 function getGapiCharId (callback){
 	console.log (`getGapiCharId function accessed`);
-	const gapiCharSearchUrl = `https://cors-anywhere.herokuapp.com/https://www.giantbomb.com/api/characters/`;
+	const gapiCharSearchUrl = `https://cryptic-headland-94862.herokuapp.com/https://www.giantbomb.com/api/characters/`;
 	const query = {
 		api_key: "2a8e5dcbcc310e7cf6713106844a65288cd678d4",
 		format: "json",
@@ -90,7 +90,7 @@ function getGapiCharDetails (apiData){
 	}
 	else {
 		let charURL = apiData.results[0].api_detail_url;
-		const gapiCharDetailsUrl = "https://cors-anywhere.herokuapp.com/"+charURL;
+		const gapiCharDetailsUrl = "https://cryptic-headland-94862.herokuapp.com/"+charURL;
 		const query = {
 			api_key: "2a8e5dcbcc310e7cf6713106844a65288cd678d4",
 			format: "json",
@@ -104,7 +104,7 @@ function getGapiCharDetails (apiData){
 // Game info - gapi
 function getGapiGameDetails (gameId, callback){
 	console.log (`getGapiGameDetails function accessed`);
-	const gapiGameDetailsUrl = `https://cors-anywhere.herokuapp.com/https://www.giantbomb.com/api/games/`;
+	const gapiGameDetailsUrl = `https://cryptic-headland-94862.herokuapp.com/https://www.giantbomb.com/api/games/`;
 	const query = {
 		api_key: "2a8e5dcbcc310e7cf6713106844a65288cd678d4",
 		format: "json",
